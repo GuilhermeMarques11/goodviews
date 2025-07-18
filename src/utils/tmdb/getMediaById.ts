@@ -1,5 +1,5 @@
-export async function getMovieById(id: string) {
-  const url = `https://api.themoviedb.org/3/movie/${id}?language=pt-BR`;
+export async function getMediaById(type: 'movie' | 'tv', id: string) {
+  const url = `https://api.themoviedb.org/3/${type}/${id}?language=pt-BR`;
 
   const options = {
     method: 'GET',
@@ -18,7 +18,7 @@ export async function getMovieById(id: string) {
   const data = await res.json();
 
   return {
-    title: data.title,
+    title: type === 'movie' ? data.title : data.name,
     poster_path: data.poster_path,
     overview: data.overview,
   };

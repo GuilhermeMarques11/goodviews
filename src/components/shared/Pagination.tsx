@@ -3,17 +3,19 @@ import Link from 'next/link';
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
+  basePath: string;
 }
 
 export default function Pagination({
   currentPage,
   totalPages,
+  basePath,
 }: PaginationProps) {
   return (
     <div className="flex justify-center mt-12 gap-2 flex-wrap">
       {currentPage > 1 && (
         <Link
-          href={`?page=${currentPage - 1}`}
+          href={`${basePath}?page=${currentPage - 1}`}
           className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
         >
           Anterior
@@ -25,7 +27,7 @@ export default function Pagination({
         return (
           <Link
             key={page}
-            href={`?page=${page}`}
+            href={`${basePath}?page=${page}`}
             className={`px-3 py-1 rounded ${
               page === currentPage
                 ? 'bg-blue-600 text-white'
@@ -39,7 +41,7 @@ export default function Pagination({
 
       {currentPage < totalPages && (
         <Link
-          href={`?page=${currentPage + 1}`}
+          href={`${basePath}?page=${currentPage + 1}`}
           className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
         >
           Próximo

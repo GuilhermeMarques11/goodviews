@@ -1,29 +1,30 @@
 import MediaCard from '@/components/shared/MediaCard';
 import Pagination from '@/components/shared/Pagination';
-import { getPopularMovies } from '@/utils/tmdb/getMovies';
-
-export interface MoviesPageProps {
-  id: number;
-  title: string;
-  poster_path: string;
-}
+import { MediaItem } from '@/types/MediaItem';
+import { getPopularMedia } from '@/utils/tmdb/getPopularMedia';
 
 interface MoviesParams {
   searchParams: { page?: string };
 }
 
-export default async function FilmesPage({ searchParams }: MoviesParams) {
+export default async function MoviesPage({ searchParams }: MoviesParams) {
   const currentPage = Number(searchParams.page) || 1;
-  const { movies, totalPages } = await getPopularMovies(currentPage);
+  const { results, totalPages } = await getPopularMedia('movie', currentPage);
+  console.log('Página atual: ', currentPage);
+  console.log('Total de páginas: ', totalPages);
 
   return (
     <>
       <div className="grid grid-cols-4 gap-2.5">
-        {movies.map((movie: MoviesPageProps) => (
-          <MediaCard key={movie.id} movie={movie} />
+        {results.map((media: MediaItem) => (
+          <MediaCard key={media.id} media={media} />
         ))}
       </div>
-      <Pagination currentPage={currentPage} totalPages={totalPages} />
+      <Pagination
+        basePath="/explorar/filmes"
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
     </>
   );
 }

@@ -1,15 +1,15 @@
 import { getMediaById } from '@/utils/tmdb/getMediaById';
 import Image from 'next/image';
 
-interface MoviePageParams {
+interface filmePageParams {
   params: {
     id: string;
   };
 }
 
-export default async function MoviePage({ params }: MoviePageParams) {
+export default async function TvShowPage({ params }: filmePageParams) {
   const { id } = params;
-  const { title, poster_path, overview } = await getMediaById('movie', id);
+  const { title, poster_path, overview } = await getMediaById('tv', id);
 
   return (
     <div className="flex gap-10">
