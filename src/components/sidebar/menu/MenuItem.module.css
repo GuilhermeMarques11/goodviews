@@ -1,0 +1,11 @@
+.dropdownIcon.open {
+  transform: rotate(180deg);
+}
+
+.subemenuActive {
+  background: rgba(200, 200, 200, 0.2);
+}
+
+.active {
+  background: #00acc1;
+}
