@@ -1,6 +1,6 @@
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  id: string;
+  label?: string;
+  id?: string;
 }
 
 export default function Input({ label, id, ...rest }: InputProps) {

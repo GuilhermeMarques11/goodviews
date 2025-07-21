@@ -1,4 +1,4 @@
-import { IoHome, IoLogIn } from 'react-icons/io5';
+import { IoHome } from 'react-icons/io5';
 import MenuItem from './MenuItem';
 import { BiSolidCameraMovie } from 'react-icons/bi';
 
@@ -15,7 +15,6 @@ export default function Menu() {
             { text: 'Séries', href: '/explorar/series' },
           ]}
         />
-        <MenuItem href="/cadastrar-se" text="Cadastrar-se" icon={<IoLogIn />} />
       </ul>
     </nav>
   );

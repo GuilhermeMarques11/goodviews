@@ -1,9 +1,12 @@
+import { getAuthenticatedUser } from '@/utils/auth';
 import styles from './Sidebar.module.css';
 
 import Menu from './menu/Menu';
 import Image from 'next/image';
 
-export default function Sidebar() {
+export default async function Sidebar() {
+  const user = await getAuthenticatedUser();
+
   return (
     <aside
       className={`${styles.sidebar} w-70 h-screen bg-cover bg-center relative py-8 px-4 flex flex-col`}
@@ -21,12 +24,16 @@ export default function Sidebar() {
         <div className="flex gap-2 items-center text-white pb-3.5 border-b-1 border-[#ffffff4d]">
           <Image
             className="rounded-full"
-            src="https://avatars.githubusercontent.com/u/84147250?v=4"
+            src="/user.png"
             width={50}
             height={50}
             alt="Avatar"
           />
-          <span className="text-sm">Guilherme Marques</span>
+          <span className="text-sm">
+            {user
+              ? `Olá, ${user.name || user.email}`
+              : 'Usuário não autenticado'}
+          </span>
         </div>
         <Menu />
       </div>
