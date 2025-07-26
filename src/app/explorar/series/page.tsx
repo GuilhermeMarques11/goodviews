@@ -1,7 +1,6 @@
-import MediaCard from '@/components/shared/MediaCard';
-import Pagination from '@/components/shared/Pagination';
-import { MediaItem } from '@/types/MediaItem';
+import Pagination from '@/app/explorar/_components/Pagination';
 import { getPopularMedia } from '@/utils/tmdb/getPopularMedia';
+import MediaList from '../_components/MediaList';
 
 interface MoviesParams {
   searchParams: { page?: string };
@@ -13,11 +12,7 @@ export default async function TvShowPage({ searchParams }: MoviesParams) {
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-2.5">
-        {results.map((media: MediaItem) => (
-          <MediaCard key={media.id} media={media} />
-        ))}
-      </div>
+      <MediaList results={results} />
       <Pagination
         basePath="/explorar/series"
         currentPage={currentPage}

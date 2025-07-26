@@ -33,7 +33,7 @@ export default async function RootLayout({
               user ? 'w-[calc(100%-280px)]' : 'w-full'
             } max-h-screen scrollbar-gutter-stable overflow-y-auto pl-8 pr-6 py-8`}
           >
-            <Header />
+            {user && <Header />}
             <main className="mt-10 p-5 flex flex-col">{children}</main>
           </div>
         </div>

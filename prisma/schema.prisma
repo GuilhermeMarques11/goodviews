@@ -23,6 +23,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   sessions Session[]
+  ratings Rating[]
 }
 
 model Session {
@@ -30,5 +31,17 @@ model Session {
   userId String
   user User @relation(fields: [userId], references: [id])
   expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Rating {
+  id String @id @default(uuid())
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  mediaId Int //ID do TMDB
+  mediaType String //'movie' ou 'tv'
+  mediaTitle String
+  score Int //nota (1 a 5, por exemplo)
+  comment String? //descrição opcional
   createdAt DateTime @default(now())
 }

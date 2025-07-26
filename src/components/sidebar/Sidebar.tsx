@@ -1,6 +1,5 @@
 import { getAuthenticatedUser } from '@/utils/auth';
 import styles from './Sidebar.module.css';
-
 import Menu from './menu/Menu';
 import Image from 'next/image';
 
