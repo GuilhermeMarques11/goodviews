@@ -3,12 +3,13 @@ import Button from '@/components/shared/Button';
 import Input from '@/components/shared/Input';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Avatars from '@/components/shared/Avatars';
 
 export default function SignupForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
   const [password, setPassword] = useState('');
-  const [image, setImage] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -20,24 +21,21 @@ export default function SignupForm() {
     setSuccess(false);
     setLoading(true);
 
-    //Usamos FormData para conseguir enviar o arquivo de imagem
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('password', password);
-    if (image) {
-      formData.append('image', image);
-    }
-
     const res = await fetch('/api/user/register', {
       method: 'POST',
-      body: formData,
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        image: selectedAvatar,
+      }),
     });
 
     const data = await res.json();
 
     if (!res.ok) {
       setError(data.error || 'Erro desconhecido');
+      setLoading(false);
     } else {
       setSuccess(true);
       setName('');
@@ -66,6 +64,10 @@ export default function SignupForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
+      <Avatars
+        selectedAvatar={selectedAvatar}
+        setSelectedAvatar={setSelectedAvatar}
+      />
       <Input
         id="password"
         type="password"
@@ -73,14 +75,6 @@ export default function SignupForm() {
         placeholder="Digite uma senha"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <Input
-        type="file"
-        accept="image/*"
-        onChange={(e) => setImage(e.target.files?.[0] || null)}
-        name="image"
-        label="Imagem de perfil (opcional)"
       />
 
       <Button loading={loading}>{loading ? 'Cadastrando' : 'Cadastrar'}</Button>

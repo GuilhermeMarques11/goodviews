@@ -3,15 +3,19 @@
 import Input from '@/components/shared/Input';
 import Button from '@/components/shared/Button';
 import React, { useEffect, useState } from 'react';
+import Avatars from '@/components/shared/Avatars';
+import { useRouter } from 'next/navigation';
 
 export default function MinhaContaPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [avatar, setAvatar] = useState<string | null>(null);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   // Fetch user data on component mount
   useEffect(() => {
@@ -24,6 +28,7 @@ export default function MinhaContaPage() {
         const userData = await response.json();
         setName(userData.name);
         setEmail(userData.email);
+        setAvatar(userData.image);
       } catch {
         setError('Erro ao carregar dados do usuário');
       } finally {
@@ -49,6 +54,7 @@ export default function MinhaContaPage() {
         body: JSON.stringify({
           name,
           email,
+          image: avatar,
           currentPassword,
           newPassword,
         }),
@@ -58,6 +64,7 @@ export default function MinhaContaPage() {
         const data = await response.json();
         throw new Error(data.error || 'Erro ao atualizar perfil');
       }
+
       setSuccess(true);
       setCurrentPassword('');
       setNewPassword('');
@@ -65,6 +72,7 @@ export default function MinhaContaPage() {
       setError(error instanceof Error ? error.message : 'Erro desconhecido');
     } finally {
       setLoading(false);
+      router.refresh();
     }
   };
 
@@ -84,6 +92,7 @@ export default function MinhaContaPage() {
         onChange={(e) => setEmail(e.target.value)}
         disabled={loading}
       />
+      <Avatars selectedAvatar={avatar} setSelectedAvatar={setAvatar} />
       <h2 className="text-2xl font-bold">Alterar senha</h2>
       <Input
         type="password"

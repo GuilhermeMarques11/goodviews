@@ -7,7 +7,7 @@ import { Prisma } from '@/generated/prisma';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, currentPassword, newPassword } = body;
+    const { name, email, image, currentPassword, newPassword } = body;
 
     const cookieStore = await cookies();
     const sessionId = cookieStore.get('sessionId')?.value;
@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
     const updates: Partial<Prisma.UserUpdateInput> = {
       name,
       email,
+      image,
     };
 
     if (currentPassword || newPassword) {

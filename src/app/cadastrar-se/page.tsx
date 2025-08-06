@@ -12,7 +12,7 @@ export default function SignupPage() {
         </p>
       </div>
       <SignupForm />
-      <p className="text-center">
+      <p className="text-center mt-2">
         Já tem uma conta?{' '}
         <Link href={'/login'} className="m-auto text-blue-500 font-bold">
           Entrar
