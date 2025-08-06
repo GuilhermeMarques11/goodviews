@@ -5,7 +5,7 @@ import { BiSolidCameraMovie } from 'react-icons/bi';
 export default function Menu() {
   return (
     <nav className="text-white">
-      <ul className="flex flex-col gap-2.5">
+      <ul className="flex flex-col gap-2.5 list-none">
         <MenuItem href="/" text="Home" icon={<IoHome />} />
         <MenuItem
           text="Explorar"

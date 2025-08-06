@@ -1,4 +1,4 @@
-import transformToMediaItem, { RawMovie, RawTvShow } from '@/types/MediaItem';
+import transformToMediaItem, { RawMovie, RawTvShow } from '@/types/mediaItem';
 
 export async function getPopularMedia(type: 'movie' | 'tv', page = 1) {
   const url = `https://api.themoviedb.org/3/${type}/popular?language=pt-BR&page=${page}`;

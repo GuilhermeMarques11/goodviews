@@ -1,7 +1,7 @@
 'use client';
 
 import MediaCard from '@/app/explorar/_components/MediaCard';
-import { MediaItem } from '@/types/MediaItem';
+import { MediaItem } from '@/types/mediaItem';
 
 interface MediaListProps {
   results: MediaItem[];

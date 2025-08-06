@@ -4,8 +4,11 @@ import bcrypt from 'bcrypt';
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { name, email, password } = body;
+    const formData = await req.formData();
+
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
 
     if (!name || !email || !password) {
       return NextResponse.json(
@@ -14,11 +17,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (typeof email != 'string' || !email.includes('@')) {
+    if (typeof email !== 'string' || !email.includes('@')) {
       return NextResponse.json({ error: 'E-mail inválido' }, { status: 400 });
     }
 
-    if (typeof password != 'string' || password.length < 6) {
+    if (typeof password !== 'string' || password.length < 6) {
       return NextResponse.json(
         { error: 'A senha deve ter pelo menos 6 caracteres' },
         { status: 400 },

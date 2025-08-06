@@ -1,24 +1,37 @@
 'use client';
 import Button from '@/components/shared/Button';
 import Input from '@/components/shared/Input';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function SignupForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [image, setImage] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
     setSuccess(false);
+    setLoading(true);
 
-    const res = await fetch('/api/auth/register', {
+    //Usamos FormData para conseguir enviar o arquivo de imagem
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('password', password);
+    if (image) {
+      formData.append('image', image);
+    }
+
+    const res = await fetch('/api/user/register', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password }),
+      body: formData,
     });
 
     const data = await res.json();
@@ -30,6 +43,8 @@ export default function SignupForm() {
       setName('');
       setEmail('');
       setPassword('');
+      setLoading(false);
+      router.push('/');
     }
   }
 
@@ -60,8 +75,16 @@ export default function SignupForm() {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <Button>Cadastrar</Button>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
+      <Input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setImage(e.target.files?.[0] || null)}
+        name="image"
+        label="Imagem de perfil (opcional)"
+      />
+
+      <Button loading={loading}>{loading ? 'Cadastrando' : 'Cadastrar'}</Button>
+      {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
       {success && (
         <p className="text-green-500 mt-2">Cadastro realizado com sucesso!</p>
       )}

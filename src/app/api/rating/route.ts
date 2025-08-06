@@ -6,7 +6,15 @@ export async function POST(req: NextRequest) {
   try {
     //Parse the JSON body from the request
     const body = await req.json();
-    const { mediaId, mediaType, mediaTitle, score, comment } = body;
+    const {
+      mediaId,
+      mediaType,
+      mediaTitle,
+      score,
+      comment,
+      poster_path,
+      overview,
+    } = body;
 
     //Validate the incoming data
     if (
@@ -15,7 +23,7 @@ export async function POST(req: NextRequest) {
       typeof mediaTitle !== 'string' ||
       typeof score !== 'number' ||
       score < 1 ||
-      score > 5
+      score > 10
     ) {
       //Return 400 Bad Request if validation fails
       return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 });
@@ -45,14 +53,30 @@ export async function POST(req: NextRequest) {
     const user = session.user;
 
     //Create a new rating record in the database linked to the user
-    const rating = await prisma.rating.create({
-      data: {
+    const rating = await prisma.rating.upsert({
+      where: {
+        userId_mediaId_mediaType: {
+          userId: user.id,
+          mediaId,
+          mediaType,
+        },
+      },
+      update: {
+        score,
+        comment,
+        poster_path,
+        overview,
+        createdAt: new Date(),
+      },
+      create: {
         userId: user.id,
         mediaId,
         mediaType,
         mediaTitle,
         score,
         comment,
+        poster_path,
+        overview,
       },
     });
 
@@ -65,6 +89,56 @@ export async function POST(req: NextRequest) {
     //Log error for debugging
     console.log('Erro ao registrar avaliação', error);
     //Return 500 Internal Server Error for unexpected errors
+    return NextResponse.json(
+      { error: 'Erro interno no servidor' },
+      { status: 500 },
+    );
+  }
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    const url = new URL(req.url);
+    const mediaId = url.searchParams.get('mediaId');
+    const mediaType = url.searchParams.get('mediaType');
+
+    //Validate query parameters
+    if (!mediaId || !mediaType) {
+      return NextResponse.json(
+        { error: 'Parâmetros inválidos' },
+        { status: 400 },
+      );
+    }
+
+    const cookieStore = await cookies();
+    const sessionId = cookieStore.get('sessionId')?.value;
+
+    if (!sessionId) {
+      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+    }
+
+    const session = await prisma.session.findUnique({
+      where: { id: sessionId },
+      include: { user: true },
+    });
+
+    if (!session || session.expiresAt < new Date()) {
+      return NextResponse.json({ error: 'Sessão inválida' }, { status: 401 });
+    }
+
+    const existingRating = await prisma.rating.findUnique({
+      where: {
+        userId_mediaId_mediaType: {
+          userId: session.user.id,
+          mediaId: Number(mediaId),
+          mediaType,
+        },
+      },
+    });
+
+    return NextResponse.json({ rating: existingRating }, { status: 200 });
+  } catch (error) {
+    console.error('Erro ao buscar avaliação', error);
     return NextResponse.json(
       { error: 'Erro interno no servidor' },
       { status: 500 },

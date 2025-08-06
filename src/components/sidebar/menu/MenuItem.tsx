@@ -3,13 +3,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './MenuItem.module.css';
 import Submenu from './Submenu';
-
-export interface MenuItemsProps {
-  text: string;
-  href?: string;
-  icon: React.ReactNode;
-  submenu?: { text: string; href: string }[];
-}
+import React from 'react';
+import { MenuItemsProps } from './types';
 
 export default function MenuItem({
   text,
@@ -27,7 +22,7 @@ export default function MenuItem({
     <li>
       <Link
         href={href!}
-        className={`flex items-center gap-3 text-[1.2rem] text-white w-screen hover:bg-[#c8c8c833] hover:text-white transition-colors duration-300 p-2 rounded-md ${
+        className={`flex items-center gap-3 text-[1.2rem]  w-screen hover:bg-[#c8c8c833] hover:text-white transition-colors duration-300 p-2 rounded-md ${
           isActive ? `${styles.active}` : ''
         }`}
       >

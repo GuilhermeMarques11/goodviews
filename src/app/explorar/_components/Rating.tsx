@@ -3,29 +3,55 @@
 import Image from 'next/image';
 import Button from '@/components/shared/Button';
 import StarRating from '@/components/shared/StarRating';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface RatingProps {
   id: string;
+  mediaType: 'movie' | 'tv';
   media: {
     title: string;
     poster_path: string;
+    overview: string;
   };
 }
 
-export default function Rating({ id, media }: RatingProps) {
+export default function Rating({ id, media, mediaType }: RatingProps) {
   const [score, setScore] = useState(0);
   const [comment, setComment] = useState('');
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [hasPreviousRating, setHasPreviousRating] = useState(false);
 
+  // Fetch existing rating when component mounts
+  useEffect(() => {
+    async function fethExistingRating() {
+      try {
+        const res = await fetch(
+          `/api/rating?mediaId=${id}&mediaType=${mediaType}`,
+        );
+        if (res.ok) {
+          const data = await res.json();
+          if (data.rating) {
+            setScore(data.rating.score);
+            setComment(data.rating.comment || '');
+            setHasPreviousRating(true);
+          }
+        }
+      } catch (error) {
+        console.error('Erro ao buscar avaliação existente:', error);
+      }
+    }
+    fethExistingRating();
+  }, [id, mediaType]);
+
+  // Handle form submission
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
 
-    if (score < 1 || score > 5) {
-      alert('Por favor, selecione uma nota de 1 a 5 estrelas.');
+    if (score < 1 || score > 10) {
+      alert('Por favor, selecione uma nota de 1 a 10 estrelas.');
       setLoading(false);
       return;
     }
@@ -35,10 +61,12 @@ export default function Rating({ id, media }: RatingProps) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         mediaId: Number(id),
-        mediaType: 'movie',
+        mediaType,
         mediaTitle: media.title,
         score,
         comment,
+        poster_path: media.poster_path,
+        overview: media.overview,
       }),
     });
 
@@ -48,8 +76,16 @@ export default function Rating({ id, media }: RatingProps) {
       router.push('/');
     } else {
       alert('Erro ao enviar avaliação.');
+      setLoading(false);
     }
   }
+
+  const buttonLabel = useMemo(() => {
+    if (loading && hasPreviousRating) return 'Atualizando...';
+    if (loading && !hasPreviousRating) return 'Enviando...';
+    if (!loading && hasPreviousRating) return 'Atualizar Avaliação';
+    return 'Enviar Avaliação';
+  }, [loading, hasPreviousRating]);
 
   return (
     <div className="flex flex-col gap-10">
@@ -84,9 +120,7 @@ export default function Rating({ id, media }: RatingProps) {
               className="w-full bg-white p-5 mt-2.5"
             ></textarea>
           </div>
-          <Button loading={loading}>
-            {loading ? 'Publicando' : 'Publicar'}
-          </Button>
+          <Button loading={loading}>{buttonLabel}</Button>
         </form>
       </div>
     </div>

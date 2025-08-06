@@ -1,56 +1,68 @@
+import { formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import Image from 'next/image';
-import { FaStar } from 'react-icons/fa6';
+import StarDisplay from '../shared/StarDisplay';
+import Link from 'next/link';
+import { RatingWithUser } from '@/types/rating';
 
-export default function FeedCard() {
+export default function FeedCard(props: RatingWithUser) {
+  const {
+    user,
+    mediaTitle,
+    score,
+    comment,
+    createdAt,
+    poster_path,
+    overview,
+    mediaId,
+    mediaType,
+  } = props;
   return (
     <div className="flex flex-col gap-4 p-5 border-b-1 border-[#cccccc50]">
       <div className="flex justify-between">
         <div className="flex gap-2 items-center text-black pb-3.5 border-b-1 border-[#ffffff4d]">
           <Image
-            className="rounded-full"
-            src="/user.png"
+            className="w-[50px] h-[50px] object-cover rounded-full"
+            src={user.image || '/default-avatar.png'}
             width={50}
             height={50}
             alt="Avatar"
           />
           <p>
-            <span className="text-sm font-bold">Guilherme Marques</span> avaliou{' '}
-            <strong>Pecadores</strong>
+            <span className="text-sm font-bold">{user.name}</span> avaliou{' '}
+            <strong>{mediaTitle}</strong>
           </p>
         </div>
-        <time className="text-[#767676]">5h</time>
+        <time className="text-[#767676]">
+          {formatDistanceToNow(new Date(createdAt), {
+            addSuffix: true,
+            locale: ptBR,
+          })}
+        </time>
       </div>
       <div className="flex items-center gap-2">
-        <p>Avaliação:</p>
-        <FaStar className="text-[#fa604a]" size={15} />
-        <FaStar className="text-[#fa604a]" size={15} />
-        <FaStar className="text-[#fa604a]" size={15} />
-        <FaStar className="text-[#fa604a]" size={15} />
-        <FaStar className="text-[#fa604a]" size={15} />
+        <StarDisplay value={score} />
       </div>
       <div>
-        <p className="text-[#737373]">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
-          explicabo incidunt at neque consequatur corporis, sit libero a
-          dolorem, inventore dolore, aperiam perferendis numquam!
-        </p>
+        <p className="text-[#737373]">{comment}</p>
       </div>
       <div className="flex items-center border-1 border-[#d8d8d8] p-4 gap-2">
-        <Image
-          className="max-w-[120px]"
-          src="/pecadores.webp"
-          width={200}
-          height={300}
-          alt="Avatar"
-        />
+        <Link
+          href={`/explorar/${
+            mediaType === 'movie' ? 'filmes' : 'series'
+          }/${mediaId}`}
+        >
+          <Image
+            className="max-w-[120px]"
+            src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+            width={200}
+            height={300}
+            alt="Avatar"
+          />
+        </Link>
         <div>
-          <h4 className="text-2xl font-bold mb-2.5">Pecadores</h4>
-          <p className="text-[#737373]">
-            Dispostos a deixar suas vidas conturbadas para trás, irmãos gêmeos
-            retornam à sua cidade natal para recomeçar suas vidas do zero,
-            quando descobrem que um mal ainda maior está à espera deles para
-            recebê-los de volta.
-          </p>
+          <h4 className="text-2xl font-bold mb-2.5">{mediaTitle}</h4>
+          <p className="text-[#737373]">{overview}</p>
         </div>
       </div>
     </div>

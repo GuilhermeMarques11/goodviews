@@ -10,14 +10,16 @@ export default function Loginform() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
     setSuccess(false);
+    setLoading(true);
 
-    const res = await fetch('api/auth/login', {
+    const res = await fetch('api/user/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -27,6 +29,7 @@ export default function Loginform() {
 
     if (!res.ok) {
       setError(data.error || 'Erro desconhecido');
+      setLoading(false);
     } else {
       setSuccess(true);
       setEmail('');
@@ -50,8 +53,8 @@ export default function Loginform() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button>Entrar</Button>
-      {error && <p className="text-red-500">{error}</p>}
+      <Button loading={loading}>{loading ? 'Entrando' : 'Entrar'}</Button>
+      {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
       {success && (
         <p className="text-green-500">Login realizado com sucesso.</p>
       )}

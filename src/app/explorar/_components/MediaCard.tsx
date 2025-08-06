@@ -1,4 +1,4 @@
-import { MediaItem } from '@/types/MediaItem';
+import { MediaItem } from '@/types/mediaItem';
 import { getImageUrl } from '@/utils/image';
 import Link from 'next/link';
 
@@ -21,7 +21,7 @@ export default function MediaCard({ media }: Props) {
             href={`/explorar/${
               media.media_type === 'movie' ? 'filmes' : 'series'
             }/${media.id}/avaliar`}
-            className="bg-white text-black px-4 py-1 rounded hover:bg-gray-200 transition"
+            className="bg-white text-black px-4 py-1 rounded hover:bg-gray-200 transition text-center"
           >
             Avaliar
           </Link>
@@ -29,7 +29,7 @@ export default function MediaCard({ media }: Props) {
             href={`/explorar/${
               media.media_type === 'movie' ? 'filmes' : 'series'
             }/${media.id}`}
-            className="bg-white text-black px-4 py-1 rounded hover:bg-gray-200 transition"
+            className="bg-white text-black px-4 py-1 rounded hover:bg-gray-200 transition text-center"
           >
             Detalhes
           </Link>

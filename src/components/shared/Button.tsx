@@ -15,7 +15,7 @@ export default function Button({
       {...props}
       disabled={loading || props.disabled}
       type="submit"
-      className={`bg-yellow-400 text-black py-2 px-4 rounded hover:bg-yellow-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap2`}
+      className={`bg-yellow-400 text-black py-2 px-4 rounded hover:bg-yellow-300 transition-all disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed flex items-center justify-center gap2`}
     >
       {children}
       {loading && <Spinner />}

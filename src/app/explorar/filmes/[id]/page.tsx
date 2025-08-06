@@ -1,5 +1,6 @@
 import { getMediaById } from '@/utils/tmdb/getMediaById';
 import Image from 'next/image';
+import RatingButton from '../../_components/RatingButton';
 
 interface MoviePageParams {
   params: {
@@ -14,14 +15,15 @@ export default async function MoviePage({ params }: MoviePageParams) {
   return (
     <div className="flex gap-10">
       {poster_path && (
-        <div className="w-[25%]">
+        <div className="w-[25%] text-center">
           <Image
-            className="rounded-md box-shadow__card w-full"
+            className="rounded-md box-shadow__card w-full mb-5"
             src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
             width={200}
             height={450}
             alt={title}
           />
+          <RatingButton id={id} />
         </div>
       )}
       <div className="w-[75%]">

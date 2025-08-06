@@ -10,8 +10,8 @@ export default function StarRating({ value, onChange }: StarRatingProps) {
   const [hover, setHover] = useState(0);
 
   return (
-    <div>
-      {Array.from({ length: 5 }, (_, i) => {
+    <div className="flex items-center">
+      {Array.from({ length: 10 }, (_, i) => {
         const starValue = i + 1;
         return (
           <button
@@ -25,11 +25,12 @@ export default function StarRating({ value, onChange }: StarRatingProps) {
             <FaStar
               fill={starValue <= (hover || value) ? '#facc15' : '#d6d6d6'}
               stroke="#facc15"
-              className="w-6 h-6"
+              className="w-5 h-5"
             />
           </button>
         );
       })}
+      <span className="ml-2 text-gray-600">{hover || value}/10</span>
     </div>
   );
 }

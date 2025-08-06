@@ -5,6 +5,7 @@ import { Roboto } from 'next/font/google';
 import Header from '@/components/header/Header';
 import ScrollToTop from '@/components/scrollToTop';
 import { getAuthenticatedUser } from '@/utils/auth';
+import Footer from '@/components/footer/Footer';
 
 const fontPrimary = Roboto({
   weight: ['400'],
@@ -31,10 +32,11 @@ export default async function RootLayout({
             data-scroll-container
             className={`${
               user ? 'w-[calc(100%-280px)]' : 'w-full'
-            } max-h-screen scrollbar-gutter-stable overflow-y-auto pl-8 pr-6 py-8`}
+            } max-h-screen scrollbar-gutter-stable overflow-y-auto pl-8 pr-6 pt-8 flex flex-col justify-between`}
           >
             {user && <Header />}
-            <main className="mt-10 p-5 flex flex-col">{children}</main>
+            <main className="mt-10 px-5 py-8 flex flex-col">{children}</main>
+            <Footer />
           </div>
         </div>
         <ScrollToTop />
