@@ -6,4 +6,5 @@ export const pageTitles: Record<string, string> = {
   '/explorar/series': 'Explorar Séries',
   '/login': 'Login',
   '/minha-conta': 'Minha Conta',
+  '/minha-conta/avaliacoes': 'Minhas Avaliações',
 };

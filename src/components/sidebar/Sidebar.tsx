@@ -43,7 +43,10 @@ export default async function Sidebar() {
               }
               submenu={[
                 { text: 'Minha conta', href: '/minha-conta' },
-                { text: 'Minhas avaliações', href: '/minhas-avaliações' },
+                {
+                  text: 'Minhas avaliações',
+                  href: 'minha-conta/avaliacoes',
+                },
                 { component: <LogoutButton /> },
               ]}
             />
