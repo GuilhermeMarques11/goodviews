@@ -45,7 +45,7 @@ export default async function Sidebar() {
                 { text: 'Minha conta', href: '/minha-conta' },
                 {
                   text: 'Minhas avaliações',
-                  href: 'minha-conta/avaliacoes',
+                  href: '/minha-conta/avaliacoes',
                 },
                 { component: <LogoutButton /> },
               ]}

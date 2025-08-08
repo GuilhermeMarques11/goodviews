@@ -12,5 +12,7 @@ export interface RatingWithUser {
   user: {
     name: string;
     image: string;
+    id: string;
   };
+  isOwner: boolean;
 }
