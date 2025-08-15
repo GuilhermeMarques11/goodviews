@@ -1,7 +1,7 @@
 import { RatingWithUser } from '@/types/rating';
 import FeedServerPage from '@/components/feed/FeedServerPage';
 
-async function getUSerRatings(userId: string): Promise<RatingWithUser[]> {
+async function getMyOwnRatings(userId: string): Promise<RatingWithUser[]> {
   const res = await fetch(`http://localhost:3000/api/rating/user/${userId}`, {
     cache: 'no-store',
   });
@@ -14,5 +14,5 @@ async function getUSerRatings(userId: string): Promise<RatingWithUser[]> {
 }
 
 export default async function MyRatingsPage() {
-  return <FeedServerPage fetchRatingsFn={getUSerRatings} />;
+  return <FeedServerPage fetchRatingsFn={getMyOwnRatings} />;
 }

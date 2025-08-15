@@ -5,8 +5,8 @@ interface FeedMediaContainerProps {
   mediaType: string;
   mediaId: number;
   mediaTitle: string;
-  poster_path: string;
-  overview: string;
+  poster_path: string | null;
+  overview: string | null;
 }
 
 export default function FeedMediaContainer({

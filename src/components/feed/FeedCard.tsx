@@ -1,13 +1,12 @@
 import StarDisplay from '../shared/StarDisplay';
-import { RatingWithUser } from '@/types/rating';
-import Actions from './Actions';
 import FeedCardHeader from './FeedCardHeader';
 import FeedMediaContainer from './FeedMediaContainer';
+import Actions from './Actions';
+import { FeedRating } from '@/types/rating';
 
-interface FeedCardProps extends RatingWithUser {
-  isOwner: boolean;
+export type FeedCardProps = FeedRating & {
   onDelete: (ratingId: string) => void;
-}
+};
 
 export default function FeedCard(props: FeedCardProps) {
   const {
@@ -26,7 +25,7 @@ export default function FeedCard(props: FeedCardProps) {
   } = props;
 
   return (
-    <div className="flex flex-col gap-4 p-5 border-b-1 border-[#cccccc50]">
+    <div className="flex flex-col gap-4 p-5 border-b border-[#cccccc50]">
       <div className="flex justify-between">
         <FeedCardHeader
           user={user}
@@ -44,15 +43,13 @@ export default function FeedCard(props: FeedCardProps) {
         )}
       </div>
       <StarDisplay value={score} />
-      <div>
-        <p className="text-[#737373]">{comment}</p>
-      </div>
+      <p className="text-[#737373]">{comment}</p>
       <FeedMediaContainer
         mediaType={mediaType}
         mediaId={mediaId}
         mediaTitle={mediaTitle}
-        poster_path={poster_path}
-        overview={overview}
+        poster_path={poster_path ?? ''}
+        overview={overview ?? ''}
       />
     </div>
   );

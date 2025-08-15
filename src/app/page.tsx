@@ -1,8 +1,8 @@
 import FeedList from '@/components/feed/FeedList';
-import { RatingWithUser } from '@/types/rating';
-import { getAuthenticatedUser } from '@/utils/auth';
 import { prisma } from '@/utils/prisma';
+import { getAuthenticatedUser } from '@/utils/auth';
 import { redirect } from 'next/navigation';
+import { FeedRating } from '@/types/rating';
 
 export default async function Home() {
   const user = await getAuthenticatedUser();
@@ -22,8 +22,14 @@ export default async function Home() {
     orderBy: { createdAt: 'desc' },
   });
 
-  const feed: RatingWithUser[] = ratings.map((rating) => ({
+  // Mapear para FeedRating
+  const feed: FeedRating[] = ratings.map((rating) => ({
     ...rating,
+    user: {
+      id: rating.user.id,
+      name: rating.user.name,
+      image: rating.user.image ?? null,
+    },
     isOwner: rating.userId === user.id,
   }));
 
