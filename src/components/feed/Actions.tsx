@@ -53,6 +53,7 @@ export default function Actions({
     const confirmed = confirm('Tem certeza que deseja deletar esta avaliação?');
     if (!confirmed) {
       setShowActions(false);
+      return;
     }
 
     const res = await fetch(`/api/rating/${ratingId}`, { method: 'DELETE' });

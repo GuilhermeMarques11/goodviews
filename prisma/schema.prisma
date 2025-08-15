@@ -25,6 +25,9 @@ model User {
 
   sessions Session[]
   ratings Rating[]
+
+  following Follow[] @relation("followsFrom") // users this user follows
+  followers Follow[] @relation("followsTo") //users following this user
 }
 
 model Session {
@@ -49,4 +52,15 @@ model Rating {
   overview String?
 
   @@unique([userId, mediaId, mediaType])
+}
+
+model Follow {
+  followerId String
+  followingId String
+  createdAt DateTime @default(now())
+
+  follower User @relation("followsFrom", fields: [followerId], references: [id])
+  following User @relation("followsTo", fields: [followingId], references: [id])
+
+  @@id([followerId, followingId])
 }
