@@ -35,9 +35,14 @@ export default function FeedCardHeader({
       </Link>
       <div>
         <p>
-          <span className="text-sm font-bold">
-            {isOwner ? 'Você' : user.name}{' '}
-          </span>{' '}
+          <Link
+            href={isOwner ? '/minha-conta/avaliacoes' : `/usuario/${user.id}`}
+            className="hover:underline"
+          >
+            <span className="text-sm font-bold">
+              {isOwner ? 'Você' : user.name}{' '}
+            </span>{' '}
+          </Link>
           avaliou <strong>{mediaTitle}</strong>
         </p>
         <time className="text-[#767676] text-sm">
