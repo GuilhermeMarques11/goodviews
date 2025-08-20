@@ -5,11 +5,14 @@ import Button from '@/components/shared/Button';
 import React, { useEffect, useState } from 'react';
 import Avatars from '@/components/shared/Avatars';
 import { useRouter } from 'next/navigation';
+import AccountInfo from '@/components/shared/AccountInfo';
 
 export default function MinhaContaPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [avatar, setAvatar] = useState<string | null>(null);
+  const [image, setAvatar] = useState<string | null>(null);
+  const [id, setId] = useState('');
+  const [createdAt, setCreatedAt] = useState<Date | null>();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -29,6 +32,9 @@ export default function MinhaContaPage() {
         setName(userData.name);
         setEmail(userData.email);
         setAvatar(userData.image);
+        setId(userData.id);
+        setCreatedAt(new Date(userData.createdAt));
+        console.log(`Data: ${typeof createdAt}`);
       } catch {
         setError('Erro ao carregar dados do usuário');
       } finally {
@@ -54,7 +60,7 @@ export default function MinhaContaPage() {
         body: JSON.stringify({
           name,
           email,
-          image: avatar,
+          image: image,
           currentPassword,
           newPassword,
         }),
@@ -77,44 +83,53 @@ export default function MinhaContaPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <Input
-        type="text"
-        label="Nome"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        disabled={loading}
+    <>
+      <AccountInfo
+        name={name}
+        id={id}
+        image={image}
+        createdAt={createdAt}
+        isCurrentUser={true}
       />
-      <Input
-        type="text"
-        label="E-mail"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        disabled={loading}
-      />
-      <Avatars selectedAvatar={avatar} setSelectedAvatar={setAvatar} />
-      <h2 className="text-2xl font-bold">Alterar senha</h2>
-      <Input
-        type="password"
-        label="Senha atual (deixe em branco para não alterar)"
-        value={currentPassword}
-        onChange={(e) => setCurrentPassword(e.target.value)}
-        disabled={loading}
-      />
-      <Input
-        type="password"
-        label="Nova senha (deixe em branco para não alterar)"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-        disabled={loading}
-      />
-      <Button loading={loading}>
-        {loading ? 'Salvando alterações...' : 'Salvar alterações'}
-      </Button>
-      {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
-      {success && (
-        <p className="text-green-500">Alterações salvas com sucesso.</p>
-      )}
-    </form>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <Input
+          type="text"
+          label="Nome"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          disabled={loading}
+        />
+        <Input
+          type="text"
+          label="E-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={loading}
+        />
+        <Avatars selectedAvatar={image} setSelectedAvatar={setAvatar} />
+        <h2 className="text-2xl font-bold">Alterar senha</h2>
+        <Input
+          type="password"
+          label="Senha atual (deixe em branco para não alterar)"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+          disabled={loading}
+        />
+        <Input
+          type="password"
+          label="Nova senha (deixe em branco para não alterar)"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          disabled={loading}
+        />
+        <Button loading={loading}>
+          {loading ? 'Salvando alterações...' : 'Salvar alterações'}
+        </Button>
+        {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
+        {success && (
+          <p className="text-green-500">Alterações salvas com sucesso.</p>
+        )}
+      </form>
+    </>
   );
 }

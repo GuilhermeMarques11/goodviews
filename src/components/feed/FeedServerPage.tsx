@@ -1,4 +1,4 @@
-import { RatingWithUser } from '@/types/rating';
+import { RatingWithUser, FeedRating } from '@/types/rating';
 import { getAuthenticatedUser } from '@/utils/auth';
 import { redirect } from 'next/navigation';
 import FeedList from './FeedList';
@@ -18,9 +18,14 @@ export default async function FeedServerPage({
 
   const feed = await fetchRatingsFn(user.id);
 
-  const ratingWithIsOwner = feed.map((rating) => ({
+  const ratingWithIsOwner: FeedRating[] = feed.map((rating) => ({
     ...rating,
     isOwner: rating.userId === user.id,
+    user: {
+      id: rating.user.id,
+      name: rating.user.name,
+      image: rating.user.image,
+    },
   }));
 
   return <FeedList ratings={ratingWithIsOwner} />;

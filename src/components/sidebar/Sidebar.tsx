@@ -6,7 +6,7 @@ import MenuItem from './menu/MenuItem';
 import LogoutButton from '../LogoutButton';
 
 export default async function Sidebar() {
-  const user = await getAuthenticatedUser();
+  const currentUser = await getAuthenticatedUser();
 
   return (
     <aside
@@ -27,15 +27,15 @@ export default async function Sidebar() {
             <MenuItem
               text={
                 <span className="text-sm">
-                  {user
-                    ? `Olá, ${user.name || user.email}`
+                  {currentUser
+                    ? `Olá, ${currentUser.name || currentUser.email}`
                     : 'Usuário não autenticado'}
                 </span>
               }
               icon={
                 <Image
                   className="rounded-full w-8 h-8 object-contain"
-                  src={user?.image || '/default-avatar.png'}
+                  src={currentUser?.image || '/default-avatar.png'}
                   width={44}
                   height={44}
                   alt="Avatar"

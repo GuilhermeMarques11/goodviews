@@ -27,12 +27,14 @@ export async function GET() {
     }
 
     // If session is valid, return user details
-    const { id, name, email } = session.user;
+    const { id, name, email, image, createdAt } = session.user;
 
     return NextResponse.json({
       id,
       name,
       email,
+      image,
+      createdAt,
     });
 
     // If session is not found or expired, return an error

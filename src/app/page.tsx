@@ -18,7 +18,15 @@ export default async function Home() {
         { userId: user.id },
       ],
     },
-    include: { user: true },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+    },
     orderBy: { createdAt: 'desc' },
   });
 

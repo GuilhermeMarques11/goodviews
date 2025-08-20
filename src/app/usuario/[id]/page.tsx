@@ -1,5 +1,5 @@
 import FeedServerPage from '@/components/feed/FeedServerPage';
-import FollowButton from '@/components/FollowButton';
+import AccountInfo from '@/components/shared/AccountInfo';
 import { getAuthenticatedUser } from '@/utils/auth';
 import { prisma } from '@/utils/prisma';
 
@@ -28,6 +28,20 @@ export default async function UserPage({ params }: UserPageProps) {
   const userId = params.id;
   const fetchRatingsFn = () => fetchRatingsByUserId(params.id);
 
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+      createdAt: true,
+    },
+  });
+
+  if (!user) {
+    return <p>Usuário não encontrado</p>;
+  }
+
   let isFollowing = false;
 
   if (currentUser && currentUser.id !== userId) {
@@ -44,11 +58,14 @@ export default async function UserPage({ params }: UserPageProps) {
 
   return (
     <div>
-      <div className="text-center mb-5">
-        {currentUser && currentUser.id !== userId && (
-          <FollowButton userId={userId} isFollowing={isFollowing} />
-        )}
-      </div>
+      <AccountInfo
+        name={user.name}
+        image={user.image}
+        id={user.id}
+        createdAt={user.createdAt}
+        isCurrentUser={currentUser?.id === userId}
+        isFollowing={isFollowing}
+      />
       <FeedServerPage fetchRatingsFn={fetchRatingsFn} />
     </div>
   );

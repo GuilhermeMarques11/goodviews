@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Sidebar from '@/components/sidebar/Sidebar';
 import { Roboto } from 'next/font/google';
-import Header from '@/components/header/Header';
+// import Header from '@/components/header/Header';
 import ScrollToTop from '@/components/scrollToTop';
 import { getAuthenticatedUser } from '@/utils/auth';
 import Footer from '@/components/footer/Footer';
@@ -13,7 +13,7 @@ const fontPrimary = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'Good Views',
+  title: 'GoodViews',
 };
 
 export default async function RootLayout({
@@ -34,8 +34,8 @@ export default async function RootLayout({
               user ? 'w-[calc(100%-280px)]' : 'w-full'
             } max-h-screen scrollbar-gutter-stable overflow-y-auto pl-8 pr-6 pt-8 flex flex-col justify-between`}
           >
-            {user && <Header />}
-            <main className="mt-10 px-5 py-8 flex flex-col">{children}</main>
+            {/* {user && <Header />} */}
+            <main className="px-5 py-8 flex flex-col">{children}</main>
             <Footer />
           </div>
         </div>
