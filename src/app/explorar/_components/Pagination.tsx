@@ -1,21 +1,28 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  basePath: string;
+  query?: string;
 }
 
 export default function Pagination({
   currentPage,
   totalPages,
-  basePath,
+  query = '',
 }: PaginationProps) {
+  const pathname = usePathname();
+
+  if (totalPages <= 1) return null;
+
   return (
     <div className="flex justify-center mt-12 gap-2 flex-wrap">
       {currentPage > 1 && (
         <Link
-          href={`${basePath}?page=${currentPage - 1}`}
+          href={`${pathname}?page=${currentPage - 1}`}
           className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
         >
           Anterior
@@ -27,7 +34,7 @@ export default function Pagination({
         return (
           <Link
             key={page}
-            href={`${basePath}?page=${page}`}
+            href={`${pathname}?page=${page}${query ? `&query=${query}` : ''}`}
             className={`px-3 py-1 rounded ${
               page === currentPage
                 ? 'bg-blue-600 text-white'
@@ -41,7 +48,7 @@ export default function Pagination({
 
       {currentPage < totalPages && (
         <Link
-          href={`${basePath}?page=${currentPage + 1}`}
+          href={`${pathname}?page=${currentPage + 1}`}
           className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
         >
           Próximo

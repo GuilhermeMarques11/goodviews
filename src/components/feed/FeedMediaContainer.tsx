@@ -32,7 +32,14 @@ export default function FeedMediaContainer({
         />
       </Link>
       <div>
-        <h4 className="text-2xl font-bold mb-2.5">{mediaTitle}</h4>
+        <Link
+          className="hover:underline"
+          href={`/explorar/${
+            mediaType === 'movie' ? 'filmes' : 'series'
+          }/${mediaId}`}
+        >
+          <h4 className="text-2xl font-bold mb-2.5">{mediaTitle}</h4>
+        </Link>
         <p className="text-[#737373]">{overview}</p>
       </div>
     </div>

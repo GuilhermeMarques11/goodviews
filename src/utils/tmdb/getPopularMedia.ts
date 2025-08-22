@@ -7,7 +7,7 @@ export async function getPopularMedia(type: 'movie' | 'tv', page = 1) {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+      Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
     },
   };
 
