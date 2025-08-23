@@ -1,59 +1,35 @@
-import { getAuthenticatedUser } from '@/utils/auth';
+'use client';
+
 import styles from './Sidebar.module.css';
 import Menu from './menu/Menu';
-import Image from 'next/image';
-import MenuItem from './menu/MenuItem';
-import LogoutButton from '../LogoutButton';
+import UserMenu from './_components/UserMenu';
+import Logo from './_components/Logo';
+import { useSidebar } from '@/app/context/SidebarContext';
 
-export default async function Sidebar() {
-  const currentUser = await getAuthenticatedUser();
+export default function Sidebar() {
+  const { isOpen, closeSidebar } = useSidebar();
 
   return (
-    <aside
-      className={`${styles.sidebar} w-70 h-screen bg-cover bg-center relative py-8 px-4 flex flex-col`}
+    <div
+      className={`${
+        isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+      } fixed z-100 w-full bg-[#00000080] lg:opacity-100 lg:visible lg:static lg:w-auto lg:bg-transparent`}
+      onClick={closeSidebar}
     >
-      <div className="relative z-2 flex flex-col gap-5">
-        <div className="flex gap-2 items-center text-white pb-3.5 border-b-1 border-[#ffffff4d]">
-          <Image
-            src="/logo-react-white.svg"
-            width={50}
-            height={50}
-            alt="Logo React"
-          />
-          <span className="uppercase text-2xl font-black">GoodViews</span>
+      <aside
+        className={`${
+          styles.sidebar
+        } h-screen bg-cover bg-center relative py-8 px-4 lg:flex lg:flex-col w-70 transition-transform duration-300 transform${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        } lg:translate-x-0`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative z-2 flex flex-col gap-5">
+          <Logo />
+          <UserMenu />
+          <Menu />
         </div>
-        <nav>
-          <ul className="flex flex-col gap-2.5 pb-3.5 list-none border-b-1 border-[#ffffff4d]">
-            <MenuItem
-              text={
-                <span className="text-sm">
-                  {currentUser
-                    ? `Olá, ${currentUser.name || currentUser.email}`
-                    : 'Usuário não autenticado'}
-                </span>
-              }
-              icon={
-                <Image
-                  className="rounded-full w-8 h-8 object-contain"
-                  src={currentUser?.image || '/default-avatar.png'}
-                  width={44}
-                  height={44}
-                  alt="Avatar"
-                />
-              }
-              submenu={[
-                { text: 'Minha conta', href: '/minha-conta' },
-                {
-                  text: 'Minhas avaliações',
-                  href: '/minha-conta/avaliacoes',
-                },
-                { component: <LogoutButton /> },
-              ]}
-            />
-          </ul>
-        </nav>
-        <Menu />
-      </div>
-    </aside>
+      </aside>
+    </div>
   );
 }

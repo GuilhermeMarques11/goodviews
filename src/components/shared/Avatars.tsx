@@ -25,7 +25,7 @@ export default function Avatars({
   return (
     <>
       <label>Escolha seu avatar:</label>
-      <div className="flex gap-2 mb-4">
+      <div className="flex flex-wrap gap-2 mb-4">
         {avatarOptions.map((src) => (
           <Image
             key={src}

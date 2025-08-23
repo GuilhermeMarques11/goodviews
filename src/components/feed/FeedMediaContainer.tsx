@@ -17,11 +17,12 @@ export default function FeedMediaContainer({
   overview,
 }: FeedMediaContainerProps) {
   return (
-    <div className="flex items-center border-1 border-[#d8d8d8] p-4 gap-2">
+    <div className="flex flex-col items-center border-1 border-[#d8d8d8] p-4 gap-4 lg:flex-row">
       <Link
         href={`/explorar/${
           mediaType === 'movie' ? 'filmes' : 'series'
         }/${mediaId}`}
+        className="order-last lg:order-first"
       >
         <Image
           className="max-w-[120px]"

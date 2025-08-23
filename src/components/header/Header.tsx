@@ -1,24 +1,23 @@
 'use client';
 
-import { pageTitles } from '@/utils/pageTitles';
-import { usePathname } from 'next/navigation';
-import { CiMenuKebab } from 'react-icons/ci';
-import SearchForm from './SearchForm';
+import { useSidebar } from '@/app/context/SidebarContext';
+// import { usePathname } from 'next/navigation';
+import { FaBarsStaggered } from 'react-icons/fa6';
 
 export default function Header() {
-  const pathname = usePathname();
-  const title = pageTitles[pathname] ?? '';
+  // const pathname = usePathname();
+  const { toggleSidebar } = useSidebar();
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <div className="flex flex-col items-center bg-white p-2 rounded-full box-shadow__card">
-          <CiMenuKebab size={30} />
-        </div>
-        <h1 className="text-2xl text-secondary">{title}</h1>
-      </div>
-      <div className="flex items-center gap-8">
-        <SearchForm />
+    <div className="flex flex-col py-8 px-5">
+      <div className="flex items-center justify-between gap-4">
+        {/* <h1 className="text-base">{pathname}</h1> */}
+        <button
+          onClick={toggleSidebar}
+          className="flex flex-col items-cente cursor-pointer lg:hidden"
+        >
+          <FaBarsStaggered size={25} />
+        </button>
       </div>
     </div>
   );
