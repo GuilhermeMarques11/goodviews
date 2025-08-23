@@ -6,15 +6,15 @@ import { MediaItem } from '@/types/mediaItem';
 import SearchForm from '../_components/SearchForm';
 
 interface MoviesParams {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     query?: string;
-  };
+  }>;
 }
 
 export default async function TvShowPage({ searchParams }: MoviesParams) {
-  const query = searchParams.query || '';
-  const currentPage = Number(searchParams.page) || 1;
+  const { query = '', page } = await searchParams;
+  const currentPage = Number(page) || 1;
 
   let results: MediaItem[] = [];
   let totalPages = 0;

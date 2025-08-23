@@ -34,7 +34,6 @@ export default function MinhaContaPage() {
         setAvatar(userData.image);
         setId(userData.id);
         setCreatedAt(new Date(userData.createdAt));
-        console.log(`Data: ${typeof createdAt}`);
       } catch {
         setError('Erro ao carregar dados do usuário');
       } finally {

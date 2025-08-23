@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 //Follow
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const user = await getAuthenticatedUser();
 
@@ -14,7 +14,7 @@ export async function POST(
   }
 
   const followerId = user.id;
-  const followingId = params.id;
+  const { id: followingId } = await params;
 
   if (followerId === followingId) {
     return NextResponse.json(
@@ -44,7 +44,7 @@ export async function POST(
 //Unfollow
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const user = await getAuthenticatedUser();
   if (!user) {
@@ -52,7 +52,7 @@ export async function DELETE(
   }
 
   const followerId = user.id;
-  const followingId = params.id;
+  const { id: followingId } = await params;
 
   try {
     await prisma.follow.delete({

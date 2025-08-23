@@ -4,18 +4,18 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { ratingId: string } },
+  { params }: { params: Promise<{ ratingId: string }> },
 ) {
   const authenticatedUser = await getAuthenticatedUser();
-  const ratingId = params.ratingId;
+  const { ratingId } = await params;
 
-  // Check of the user is authenticated
+  // Check if the user is authenticated
   if (!authenticatedUser) {
     return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
   }
 
   try {
-    // Check if the rating exists and belongs to the athenticated user
+    // Check if the rating exists and belongs to the authenticated user
     const rating = await prisma.rating.findUnique({
       where: { id: ratingId },
     });
@@ -29,12 +29,12 @@ export async function DELETE(
 
     if (rating.userId !== authenticatedUser.id) {
       return NextResponse.json(
-        { error: 'Você não tem permissão para excluir esa avaliação' },
+        { error: 'Você não tem permissão para excluir esta avaliação' },
         { status: 403 },
       );
     }
 
-    // If the rating exists and belongs to the authenticated user, delet interno
+    // If the rating exists and belongs to the authenticated user, delete it
     await prisma.rating.delete({
       where: { id: ratingId },
     });

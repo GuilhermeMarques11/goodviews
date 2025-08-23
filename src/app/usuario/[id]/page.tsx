@@ -18,15 +18,15 @@ async function fetchRatingsByUserId(id: string) {
 }
 
 interface UserPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function UserPage({ params }: UserPageProps) {
   const currentUser = await getAuthenticatedUser();
-  const userId = params.id;
-  const fetchRatingsFn = () => fetchRatingsByUserId(params.id);
+  const { id: userId } = await params;
+  const fetchRatingsFn = () => fetchRatingsByUserId(userId);
 
   const user = await prisma.user.findUnique({
     where: { id: userId },

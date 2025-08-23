@@ -1,4 +1,3 @@
-// No arquivo @/types/rating.ts
 export type RatingWithUser = {
   id: string;
   userId: string;
@@ -7,6 +6,7 @@ export type RatingWithUser = {
   mediaType: string;
   mediaTitle: string;
   score: number;
+  comment: string | null;
   poster_path: string | null;
   overview: string | null;
   user: {

@@ -3,13 +3,13 @@ import Image from 'next/image';
 import RatingButton from '../../_components/RatingButton';
 
 interface MoviePageParams {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function MoviePage({ params }: MoviePageParams) {
-  const { id } = params;
+  const { id } = await params;
   const { title, poster_path, overview } = await getMediaById('movie', id);
 
   return (

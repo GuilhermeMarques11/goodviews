@@ -2,14 +2,14 @@ import { getMediaById } from '@/utils/tmdb/getMediaById';
 import Image from 'next/image';
 import RatingButton from '../../_components/RatingButton';
 
-interface filmePageParams {
-  params: {
+interface TvShowPageParams {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default async function TvShowPage({ params }: filmePageParams) {
-  const { id } = params;
+export default async function TvShowPage({ params }: TvShowPageParams) {
+  const { id } = await params;
   const { title, poster_path, overview } = await getMediaById('tv', id);
 
   return (
