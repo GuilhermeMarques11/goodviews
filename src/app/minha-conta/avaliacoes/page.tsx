@@ -2,9 +2,12 @@ import { RatingWithUser } from '@/types/rating';
 import FeedServerPage from '@/components/feed/FeedServerPage';
 
 async function getMyOwnRatings(userId: string): Promise<RatingWithUser[]> {
-  const res = await fetch(`http://localhost:3000/api/rating/user/${userId}`, {
-    cache: 'no-store',
-  });
+  const res = await fetch(
+    `https://goodviews-gyt1n0e87-guilherme-marques-projects-f5c74c9b.vercel.app/api/rating/user/${userId}`,
+    {
+      cache: 'no-store',
+    },
+  );
 
   if (!res.ok) {
     throw new Error('Falha ao buscar avaliações do usuário');
