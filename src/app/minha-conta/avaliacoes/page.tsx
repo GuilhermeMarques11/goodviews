@@ -3,7 +3,7 @@ import FeedServerPage from '@/components/feed/FeedServerPage';
 
 async function getMyOwnRatings(userId: string): Promise<RatingWithUser[]> {
   const res = await fetch(
-    `https://goodviews-gyt1n0e87-guilherme-marques-projects-f5c74c9b.vercel.app/api/rating/user/${userId}`,
+    `https://goodviews-iota.vercel.app/api/rating/user/${userId}`,
     {
       cache: 'no-store',
     },
