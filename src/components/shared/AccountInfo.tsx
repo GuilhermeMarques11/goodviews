@@ -29,7 +29,8 @@ export default function AccountInfo({
         <h1 className="text-2xl font-bold">{name}</h1>
         <p className="flex justify-between text-[#767676]">ID: {id}</p>
         <p className="text-[#767676]">
-          Atividade: {createdAt ? createdAt.toLocaleDateString('pt-BR') : ''}
+          Perfil criado em:{' '}
+          {createdAt ? createdAt.toLocaleDateString('pt-BR') : ''}
         </p>
         {!isCurrentUser && (
           <FollowButton userId={id} isFollowing={!!isFollowing} />

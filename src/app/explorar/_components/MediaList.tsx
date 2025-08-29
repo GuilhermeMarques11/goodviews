@@ -9,7 +9,7 @@ interface MediaListProps {
 
 export default function MediaList({ results }: MediaListProps) {
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full">
       <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
         {results.map((media: MediaItem) => (
           <MediaCard key={media.id} media={media} />

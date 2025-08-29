@@ -19,7 +19,7 @@ export default function Sidebar() {
       <aside
         className={`${
           styles.sidebar
-        } h-screen bg-cover bg-center relative py-8 px-4 lg:flex lg:flex-col w-70 transition-transform duration-300 transform${
+        } h-screen bg-cover bg-center relative py-11 px-4 lg:flex lg:flex-col w-70 transition-transform duration-300 transform${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } lg:translate-x-0`}
         onClick={(e) => e.stopPropagation()}

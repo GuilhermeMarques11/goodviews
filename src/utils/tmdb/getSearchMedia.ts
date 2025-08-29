@@ -13,7 +13,7 @@ export async function getSearchMedia(
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`, // ✅ igual no popular
+      Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
     },
   };
 

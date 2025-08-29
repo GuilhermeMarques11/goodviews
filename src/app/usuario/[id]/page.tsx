@@ -5,7 +5,7 @@ import { prisma } from '@/utils/prisma';
 
 async function fetchRatingsByUserId(id: string) {
   const res = await fetch(
-    `https://goodviews-gyt1n0e87-guilherme-marques-projects-f5c74c9b.vercel.app/api/rating/user/${id}`,
+    `https://goodviews-iota.vercel.app/api/rating/user/${id}`,
     {
       cache: 'no-store',
     },
@@ -60,7 +60,7 @@ export default async function UserPage({ params }: UserPageProps) {
   }
 
   return (
-    <div>
+    <div className="container">
       <AccountInfo
         name={user.name}
         image={user.image}

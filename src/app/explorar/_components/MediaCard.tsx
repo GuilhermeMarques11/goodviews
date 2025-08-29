@@ -9,7 +9,7 @@ interface Props {
 export default function MediaCard({ media }: Props) {
   return (
     <div
-      className="rounded-md box-shadow__card bg-cover min-h-[200px] lg:min-h-[354px] overflow-hidden relative group"
+      className="rounded-md box-shadow__card bg-cover min-h-[200px] lg:min-h-[400px] overflow-hidden relative group"
       style={{
         backgroundImage: `url('${getImageUrl(media.poster_path)}')`,
       }}

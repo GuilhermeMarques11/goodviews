@@ -41,5 +41,9 @@ export default async function Home() {
     isOwner: rating.userId === user.id,
   }));
 
-  return <FeedList ratings={feed} />;
+  return (
+    <div className="container">
+      <FeedList ratings={feed} />
+    </div>
+  );
 }

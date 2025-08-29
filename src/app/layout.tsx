@@ -35,10 +35,10 @@ export default async function RootLayout({
                 data-scroll-container
                 className={`${
                   user ? 'lg:w-[calc(100%-280px)]' : 'w-full'
-                } max-h-screen scrollbar-gutter-stable overflow-y-auto p-0 flex flex-col justify-between lg:pl-8 lg:pr-6 lg:pt-8`}
+                } max-h-screen overflow-y-auto p-0 flex flex-col justify-between`}
               >
-                {user && <Header />}
-                <main className="px-5 py-8 flex flex-col">{children}</main>
+                {/* {user && <Header />} */}
+                <main className="flex flex-col">{children}</main>
                 <Footer />
               </div>
             </div>

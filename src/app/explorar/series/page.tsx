@@ -30,10 +30,10 @@ export default async function TvShowPage({ searchParams }: MoviesParams) {
   }
 
   return (
-    <>
+    <div className="container">
       <SearchForm placeholder="Pesquisar séries..." defaultQuery={query} />
       <MediaList results={results} />
       <Pagination currentPage={currentPage} totalPages={totalPages} />
-    </>
+    </div>
   );
 }

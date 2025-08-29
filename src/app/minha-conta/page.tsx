@@ -82,7 +82,7 @@ export default function MinhaContaPage() {
   };
 
   return (
-    <>
+    <div className="container">
       <AccountInfo
         name={name}
         id={id}
@@ -129,6 +129,6 @@ export default function MinhaContaPage() {
           <p className="text-green-500">Alterações salvas com sucesso.</p>
         )}
       </form>
-    </>
+    </div>
   );
 }

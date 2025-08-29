@@ -88,7 +88,7 @@ export default function Rating({ id, media, mediaType }: RatingProps) {
   }, [loading, hasPreviousRating]);
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="container flex flex-col gap-10">
       <div className="flex gap-5">
         <Image
           src={`https://image.tmdb.org/t/p/w500/${media.poster_path}`}
