@@ -26,14 +26,14 @@ export default async function TvShowPage({ params }: TvShowPageParams) {
         }}
       >
         <div
-          className="flex gap-10 py-7.5 px-10"
+          className="flex flex-col lg:flex-row gap-10 py-8 px-10"
           style={{
             backgroundImage:
               'linear-gradient(to right, rgba(20, 20, 20, 1) calc((50vw - 170px) - 340px), rgba(20, 20, 20, 0.85) 50%, rgba(20, 20, 20, 0.85) 100%)',
           }}
         >
           {poster_path && (
-            <div className="w-[25%] text-center">
+            <div className="w-full order-2 lg:order-[initial] lg:w-[25%] text-center">
               <Image
                 className="rounded-md box-shadow__card w-full mb-5"
                 src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
@@ -46,13 +46,13 @@ export default async function TvShowPage({ params }: TvShowPageParams) {
               </div>
             </div>
           )}
-          <div className="w-[75%] text-white flex flex-col gap-5">
+          <div className="w-full lg:w-[75%] text-white flex flex-col gap-5">
             <div>
               <h1 className="text-4xl uppercase">
                 {title} <span>({new Date(first_air_date).getFullYear()})</span>
               </h1>
               <div className="flex items-center gap-3">
-                <p>
+                <p className="mt-1">
                   {genres
                     .map((g: { id: number; name: string }) => g.name)
                     .join(', ')}

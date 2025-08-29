@@ -37,7 +37,7 @@ export default async function RootLayout({
                   user ? 'lg:w-[calc(100%-280px)]' : 'w-full'
                 } max-h-screen overflow-y-auto p-0 flex flex-col justify-between`}
               >
-                {/* {user && <Header />} */}
+                {user && <Header />}
                 <main className="flex flex-col">{children}</main>
                 <Footer />
               </div>
