@@ -42,7 +42,7 @@ export default async function TvShowPage({ params }: TvShowPageParams) {
           {poster_path && (
             <div className="w-full order-2 lg:order-[initial] lg:w-[25%] text-center">
               <Image
-                className="rounded-md box-shadow__card w-full mb-5"
+                className="rounded-md box-shadow__card w-[200px] h-[300px] mb-5"
                 src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
                 width={200}
                 height={450}
