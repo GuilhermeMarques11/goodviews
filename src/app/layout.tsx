@@ -8,6 +8,7 @@ import { getAuthenticatedUser } from '@/utils/auth';
 import Footer from '@/components/footer/Footer';
 import { SidebarProvider } from './context/SidebarContext';
 import UserProviderServer from './context/UserProviderServer';
+
 const fontPrimary = Roboto({
   weight: ['400'],
   subsets: ['latin'],
@@ -19,9 +20,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const user = await getAuthenticatedUser();
 
   return (
@@ -29,17 +28,18 @@ export default async function RootLayout({
       <body className={fontPrimary.className}>
         <UserProviderServer>
           <SidebarProvider>
-            <div className="flex min-h-screen">
+            <div className="flex h-[100svh]">
               {user && <Sidebar />}
               <div
-                data-scroll-container
                 className={`${
                   user ? 'lg:w-[calc(100%-280px)]' : 'w-full'
-                } max-h-screen overflow-y-auto p-0 flex flex-col justify-between`}
+                } flex flex-col flex-1 h-full overflow-y-auto`}
               >
                 {user && <Header />}
-                <main className="flex flex-col">{children}</main>
-                <Footer />
+                <div className="flex flex-col">
+                  <main className="flex flex-col">{children}</main>
+                  <Footer />
+                </div>
               </div>
             </div>
           </SidebarProvider>

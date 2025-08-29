@@ -29,7 +29,7 @@ export default async function Cast({ id, type }: CastProps) {
                 alt={actor.name}
                 width={128}
                 height={192}
-                className="rounded-md"
+                className="rounded-md w-full"
               />
             ) : (
               <div className="w-32 h-48 bg-gray-700 rounded-md flex items-center justify-center">

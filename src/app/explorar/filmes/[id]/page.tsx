@@ -13,8 +13,15 @@ interface TvShowPageParams {
 
 export default async function TvShowPage({ params }: TvShowPageParams) {
   const { id } = await params;
-  const { title, poster_path, overview, genres, runtime, first_air_date } =
-    await getMediaById('movie', id);
+  const {
+    title,
+    poster_path,
+    overview,
+    genres,
+    runtime,
+    first_air_date,
+    release_date,
+  } = await getMediaById('movie', id);
   const backdrop = await getMediaImages('movie', id);
 
   return (
@@ -49,10 +56,17 @@ export default async function TvShowPage({ params }: TvShowPageParams) {
           <div className="w-full lg:w-[75%] text-white flex flex-col gap-5">
             <div>
               <h1 className="text-4xl uppercase">
-                {title} <span>({new Date(first_air_date).getFullYear()})</span>
+                {title}{' '}
+                <span>
+                  (
+                  {release_date
+                    ? new Date(release_date).getFullYear()
+                    : new Date(first_air_date).getFullYear()}
+                  )
+                </span>
               </h1>
-              <div className="flex flex-col lg:flex-row lg:items-center gap-3">
-                <p className="mt-1">
+              <div className="flex items-center gap-3 mt-1">
+                <p>
                   {genres
                     .map((g: { id: number; name: string }) => g.name)
                     .join(', ')}

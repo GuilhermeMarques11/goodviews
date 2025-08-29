@@ -12,7 +12,7 @@ export default async function LoginPage() {
 
   return (
     <div className="container flex flex-col items-center">
-      <div className="flex flex-col gap-2 text-center w-6/12 bg-white p-8 rounded-2xl">
+      <div className="flex flex-col gap-2 text-center w-full lg:w-6/12 bg-white p-8 rounded-2xl">
         <h1 className="text-4xl font-bold mb-5">GoodViews</h1>
         <Loginform />
         <p className="mt-2">

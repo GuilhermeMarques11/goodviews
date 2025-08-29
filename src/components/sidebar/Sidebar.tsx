@@ -11,7 +11,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`${
+      className={`h-full ${
         isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       } fixed z-100 w-full bg-[#00000080] lg:opacity-100 lg:visible lg:static lg:w-auto lg:bg-transparent`}
       onClick={closeSidebar}
