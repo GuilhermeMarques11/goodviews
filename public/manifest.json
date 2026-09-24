@@ -1,0 +1,21 @@
+{
+  "name": "GoodViews",
+  "short_name": "GoodViews",
+  "description": "Descubra filmes e séries com recomendações autênticas das pessoas que você confia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "icons": [
+    {
+      "src": "/icons/goodviews-logo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/goodviews-logo-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
