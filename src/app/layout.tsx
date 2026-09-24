@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Sidebar from '@/components/sidebar/Sidebar';
 import { Roboto } from 'next/font/google';
@@ -16,6 +16,18 @@ const fontPrimary = Roboto({
 
 export const metadata: Metadata = {
   title: 'GoodViews',
+  description: "Descubra filmes e séries com recomendações autênticas das pessoas que você confia",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "GoodViews",
+  },
+};
+
+// Configuração do tema da interface no celular
+export const viewport: Viewport = {
+  themeColor: "#121212",
 };
 
 export default async function RootLayout({
