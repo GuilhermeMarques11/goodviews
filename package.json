@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ducanh2912/next-pwa": "^5.6.0",
+    "@ducanh2912/next-pwa": "latest",
     "@prisma/client": "^6.12.0",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
