@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "typescript-eslint": "^8.0.0",
     "@ducanh2912/next-pwa": "latest",
     "@prisma/client": "^6.12.0",
     "bcrypt": "^6.0.0",
