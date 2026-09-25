@@ -1,7 +1,7 @@
 {
   "name": "GoodViews",
   "short_name": "GoodViews",
-  "description": "Descubra filmes e séries com recomendações autênticas das pessoas que você confia",
+  "description": "Descubra filmes e series com recomendacoes autenticas das pessoas que voce confia",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#121212",

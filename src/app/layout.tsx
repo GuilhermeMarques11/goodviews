@@ -16,12 +16,15 @@ const fontPrimary = Roboto({
 
 export const metadata: Metadata = {
   title: 'GoodViews',
-  description: "Descubra filmes e séries com recomendações autênticas das pessoas que você confia",
+  description: "Descubra filmes e series com recomendacoes autenticas das pessoas que voce confia",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "GoodViews",
+  },
+  icons: {
+    apple: "/icons/goodviews-logo-192x192.png",
   },
 };
 
